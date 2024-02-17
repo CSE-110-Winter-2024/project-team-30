@@ -4,6 +4,8 @@ import android.app.Application;
 
 import androidx.room.Room;
 
+import java.util.List;
+
 import edu.ucsd.cse110.successorator.app.data.db.RoomGoalRepository;
 import edu.ucsd.cse110.successorator.app.data.db.SuccessoratorDatabase;
 import edu.ucsd.cse110.successorator.lib.data.InMemoryDataSource;
@@ -14,10 +16,11 @@ public class SuccessoratorApplication extends Application {
     private InMemoryDataSource dataSource;
     private GoalRepository goalRepository;
 
-    @Override
+    //@Override
     public void onCreate() {
         super.onCreate();
 
+        // Build database
         var database = Room.databaseBuilder(
                 getApplicationContext(),
                 SuccessoratorDatabase.class,
@@ -32,8 +35,16 @@ public class SuccessoratorApplication extends Application {
         var sharedPreferences = getSharedPreferences("successorator", MODE_PRIVATE);
         var isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
 
+        // Default goals for testing purposes
+        List<Goal> DEFAULT_GOALS = List.of(
+            new Goal(1, "Goal 1", false),
+            new Goal(2, "Goal 2", false),
+            new Goal(3, "Goal 3", false)
+        );
+
+        // Populate database with default values
         if (isFirstRun && database.goalDao().count() == 0) {
-            goalRepository.save(InMemoryDataSource.DEFAULT_GOALS);
+            goalRepository.save(DEFAULT_GOALS);
 
             sharedPreferences.edit()
                 .putBoolean("isFirstRun", false)
