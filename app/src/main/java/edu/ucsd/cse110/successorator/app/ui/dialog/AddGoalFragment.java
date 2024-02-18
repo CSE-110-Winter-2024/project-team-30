@@ -70,9 +70,16 @@ public class AddGoalFragment extends DialogFragment{
 
         // Dismiss the dialog
         dialog.dismiss();
+
+
+
+        /*Goal newGoal = new Goal(12, "Buy a pumpkin", false);
+        activityModel.addGoal(newGoal);
+        dialog.dismiss();*/
     }
 
     private void onNegativeButtonClick(DialogInterface dialog, int which) {
+
         dialog.cancel();
     }
 }
