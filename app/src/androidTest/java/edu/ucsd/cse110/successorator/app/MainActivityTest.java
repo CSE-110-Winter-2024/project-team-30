@@ -68,8 +68,11 @@ public class MainActivityTest {
                 model.addGoal(goal1);
                 model.addGoal(goal2);
                 model.getRepo();
+                assertEquals(2, model.getRepo().tempFindAll().size());
+                assertEquals(false, model.getRepo().tempFind(1).completed());
+                model.changeCompleteStatus(1);
+                assertEquals(true, model.getRepo().tempFind(1).completed());
 
-                assertEquals(2, model.getRepo().findAll().toString());
 
 
 
@@ -85,38 +88,5 @@ public class MainActivityTest {
 
 
 
-        /*
-        //Make a mainViewModel with a fresh repository
-        var database = Room.databaseBuilder(
-                        getApplicationContext(),
-                        SuccessoratorDatabase.class,
-                        "successorator-database"
-                )
-                .allowMainThreadQueries()
-                .build();
-
-
-        var dataSource = new RoomGoalRepository(database.goalDao());
-        this.model = new MainViewModel(dataSource);
-
-        //Add two goals to the repository
-        Goal goal1 = new Goal(1, "Goal 1", false);
-        Goal goal2 = new Goal(2, "Goal 2", false);
-        model.addGoal(goal1);
-        model.addGoal(goal2);
-        //Rahul you would check here whether the size of the database updates
-        // And whether the size of completeGoals (in model) updates
-
-        //call ChangeCompleteStatus on one of them
-        model.changeCompleteStatus(1);
-        //Check size of incomplete goals and complete goals
-        assertEquals(1, model.getCompleteGoals().getValue().size());
-        assertEquals(1, model.getIncompleteGoals().getValue().size());
-        //Check if the right goals are in the right lists
-        assertEquals(true, dataSource.find(1).getValue().completed());
-        assertEquals(false, dataSource.find(2).getValue().completed());
-
-        assertEquals("Goal 2", model.getCompleteGoals().getValue().get(0).description());
-        assertEquals("Goal 1", model.getCompleteGoals().getValue().get(0).description());*/
     }
 }
