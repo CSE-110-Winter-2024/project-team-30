@@ -1,3 +1,27 @@
+package edu.ucsd.cse110.successorator.app;
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.lifecycle.ViewModelProvider;
+import edu.ucsd.cse110.successorator.app.databinding.ActivityMainBinding;
+import edu.ucsd.cse110.successorator.app.ui.GoalListAdapter;
+import edu.ucsd.cse110.successorator.app.ui.GoalListFragment;
+import edu.ucsd.cse110.successorator.app.ui.dialog.AddGoalFragment;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ActivityMainBinding view;
@@ -70,26 +94,6 @@ public class MainActivity extends AppCompatActivity {
             dialogFragment.show(getSupportFragmentManager(), "AddGoalFragment");
         });
 
-
-
-        //setup the adapter for the list, so it can update it at the beginning
-        this.adapter = new GoalListAdapter(getApplicationContext(), List.of(), null);
-
-        model.getIncompleteGoals().registerObserver(goals -> {
-            if (goals == null) {
-                view.defaultGoals.setVisibility(View.VISIBLE);
-                return;
-            }
-            if (goals.size() == 0) {
-                view.defaultGoals.setVisibility(View.VISIBLE);
-            } else {
-                view.defaultGoals.setVisibility(View.INVISIBLE);
-            }
-            adapter.clear();
-            adapter.addAll(new ArrayList<>(goals));
-            adapter.notifyDataSetChanged();
-        });
-        
         //show the GoalListFragment
         getSupportFragmentManager()
                 .beginTransaction()
@@ -106,9 +110,6 @@ public class MainActivity extends AppCompatActivity {
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(currentCalendar.getTime());
         textViewDate.setText(currentDate);
 
-        if(prevDate != null && !(prevDate.equals(currentDate))){
-            model.deleteCompleted();
-        }
         prevDate = currentDate;
     }
 
