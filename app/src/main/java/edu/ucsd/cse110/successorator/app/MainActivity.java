@@ -73,4 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(view.getRoot());
     }
+
+    //For testing
+    public MainViewModel getMainViewModel() {
+        return model;
+    }
 }

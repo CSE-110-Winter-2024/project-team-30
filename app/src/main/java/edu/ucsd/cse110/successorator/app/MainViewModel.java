@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import edu.ucsd.cse110.successorator.app.data.db.RoomGoalRepository;
 import edu.ucsd.cse110.successorator.lib.domain.Goal;
+import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 import edu.ucsd.cse110.successorator.lib.util.SimpleSubject;
 
 public class MainViewModel extends ViewModel{
@@ -58,5 +59,13 @@ public class MainViewModel extends ViewModel{
 
     public SimpleSubject<String> getDisplayedText() {
         return displayedText;
+    }
+
+    public void clearRepository() {
+        goalRepository.clear();
+    }
+
+    public GoalRepository getRepo(){
+        return this.goalRepository;
     }
 }

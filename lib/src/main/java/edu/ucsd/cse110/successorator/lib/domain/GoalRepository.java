@@ -17,7 +17,11 @@ public interface GoalRepository {
 
     int count();
 
+    Goal tempFind(int id);
+
     List<Goal> tempFindAll();
 
     void remove(int id);
+
+    void clear();
 }
