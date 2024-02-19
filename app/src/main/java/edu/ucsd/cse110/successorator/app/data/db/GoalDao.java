@@ -49,4 +49,7 @@ public interface GoalDao {
 
     @Query("DELETE FROM goals")
     void clear();
+
+    @Query("DELETE FROM goals WHERE completed=true")
+    void deleteComplete();
 }

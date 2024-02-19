@@ -26,5 +26,7 @@ public interface GoalRepository {
     void remove(int id);
     ArrayList<Goal> tempFindAll();
 
+    void deleteCompleted();
+
     void clear();
 }
