@@ -25,11 +25,6 @@ public class RoomGoalRepository extends RepositorySubject implements GoalReposit
         return new LiveDataSubjectAdapter<>(goalLiveData);
     }
 
-    public Goal tempFind(int id){
-        var goalEntity = goalDao.find(id);
-        return goalEntity.toGoal();
-    }
-
     @Override
     public Subject<List<Goal>> findAll() {
         var entitiesLiveData = goalDao.findAllAsLiveData();
@@ -39,6 +34,12 @@ public class RoomGoalRepository extends RepositorySubject implements GoalReposit
                     .collect(Collectors.toList());
         });
         return new LiveDataSubjectAdapter<>(goalsLiveData);
+    }
+
+    @Override
+    public Goal tempFind(int id){
+        var goalEntity = goalDao.find(id);
+        return goalEntity.toGoal();
     }
 
     @Override
@@ -91,23 +92,16 @@ public class RoomGoalRepository extends RepositorySubject implements GoalReposit
     }
 
     @Override
-    public void remove(int id) {
-        goalDao.delete(id);
+    public void deleteCompleted() {
+        goalDao.deleteComplete();
     }
-
     @Override
-    public void clear(){
+    public void clear() {
         goalDao.clear();
     }
 
-    public ArrayList<Goal> tempFindAll(){
-        var goalEntities = goalDao.findAll();
-        ArrayList<Goal> ans = new ArrayList<>();
-        for(GoalEntity entity: goalEntities){
-            ans.add(entity.toGoal());
-        }
-        return ans;
+    @Override
+    public void remove(int id) {
+        goalDao.delete(id);
     }
-
-
 }
