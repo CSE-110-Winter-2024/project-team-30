@@ -89,4 +89,9 @@ public class RoomGoalRepository extends RepositorySubject implements GoalReposit
     public void remove(int id) {
         goalDao.delete(id);
     }
+
+    @Override
+    public void clear(){
+        goalDao.clear();
+    }
 }

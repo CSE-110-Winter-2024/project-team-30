@@ -80,4 +80,9 @@ public class MainActivity extends AppCompatActivity {
         //set the current view this main activity that we just set up
         setContentView(view.getRoot());
     }
+
+    //For testing
+    public MainViewModel getMainViewModel() {
+        return model;
+    }
 }

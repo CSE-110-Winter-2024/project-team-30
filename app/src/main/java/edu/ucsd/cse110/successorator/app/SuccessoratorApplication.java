@@ -36,7 +36,7 @@ public class SuccessoratorApplication extends Application {
         var isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
 
         // Default goals for testing purposes
-        List<Goal> DEFAULT_GOALS = List.of(
+        /*List<Goal> DEFAULT_GOALS = List.of(
             new Goal(1, "Goal 1", false),
             new Goal(2, "Goal 2", false),
             new Goal(3, "Goal 3", false)
@@ -49,7 +49,7 @@ public class SuccessoratorApplication extends Application {
             sharedPreferences.edit()
                 .putBoolean("isFirstRun", false)
                 .apply();
-        }
+        }*/
     }
 
     public GoalRepository getGoalRepository() {

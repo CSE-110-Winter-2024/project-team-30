@@ -22,4 +22,6 @@ public interface GoalRepository {
     int count();
 
     void remove(int id);
+
+    void clear();
 }
