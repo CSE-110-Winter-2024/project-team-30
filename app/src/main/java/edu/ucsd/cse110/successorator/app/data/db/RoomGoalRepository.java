@@ -52,6 +52,7 @@ public class RoomGoalRepository extends RepositorySubject implements GoalReposit
     }
 
     @Override
+
     public void save(Goal goal) {
         goalDao.insert(GoalEntity.fromGoal(goal));
     }
@@ -67,6 +68,7 @@ public class RoomGoalRepository extends RepositorySubject implements GoalReposit
     @Override
     public void add(Goal goal) {
         goalDao.insert(GoalEntity.fromGoal(goal));
+
         this.setValue(tempFindAll());
         this.notifyObservers();
     }
@@ -76,6 +78,7 @@ public class RoomGoalRepository extends RepositorySubject implements GoalReposit
     }
 
     @Override
+
     public void remove(int id) {
         goalDao.delete(id);
     }
@@ -85,3 +88,5 @@ public class RoomGoalRepository extends RepositorySubject implements GoalReposit
         goalDao.clear();
     }
 }
+
+
