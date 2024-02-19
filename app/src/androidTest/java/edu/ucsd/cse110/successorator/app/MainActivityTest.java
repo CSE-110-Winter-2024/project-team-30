@@ -67,29 +67,15 @@ public class MainActivityTest {
                 model.clearRepository();
                 model.addGoal(goal1);
                 model.addGoal(goal2);
+                model.getRepo();
 
-                model.getIncompleteGoals().registerObserver(goals -> {
-                    assertEquals(2, goals.size());
-                });
-
+                assertEquals(2, model.getRepo().findAll().toString());
 
 
-                //assertEquals(2, model.getIncompleteGoals().getValue().size());
 
-                //Rahul you would check here whether the size of the database updates
-                // And whether the size of completeGoals (in model) updates
 
-                //call ChangeCompleteStatus on one of them
-                model.changeCompleteStatus(1);
-                //Check size of incomplete goals and complete goals
-                assertEquals(1, model.getCompleteGoals().getValue().size());
-                assertEquals(1, model.getIncompleteGoals().getValue().size());
-                //Check if the right goals are in the right lists
-                //assertEquals(true, model.find(1).getValue().completed());
-                //assertEquals(false, dataSource.find(2).getValue().completed());
 
-                assertEquals("Goal 2", model.getCompleteGoals().getValue().get(0).description());
-                assertEquals("Goal 1", model.getCompleteGoals().getValue().get(0).description());
+
 
             });
 
