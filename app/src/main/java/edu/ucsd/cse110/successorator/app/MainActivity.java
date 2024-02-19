@@ -126,4 +126,8 @@ public class MainActivity extends AppCompatActivity {
         handler.removeCallbacks(dateUpdater);
         super.onDestroy();
     }
+
+    public MainViewModel getMainViewModel() {
+        return model;
+    }
 }
