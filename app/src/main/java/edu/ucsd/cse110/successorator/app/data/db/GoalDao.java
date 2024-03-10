@@ -1,5 +1,6 @@
 package edu.ucsd.cse110.successorator.app.data.db;
 
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -7,55 +8,76 @@ import androidx.room.Query;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Transaction;
 
+
 import java.util.List;
+
 
 @Dao
 public interface GoalDao {
-    // Inserting a goal
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Long insert(GoalEntity goal);
+   // Inserting a goal
+   @Insert(onConflict = OnConflictStrategy.REPLACE)
+   Long insert(GoalEntity goal);
 
-    // Inserting a list of goals
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    List<Long> insert(List<GoalEntity> goals);
 
-    // Return all goals
-    @Query("SELECT * FROM goals")
-    List<GoalEntity> findAll();
+   // Inserting a list of goals
+   @Insert(onConflict = OnConflictStrategy.REPLACE)
+   List<Long> insert(List<GoalEntity> goals);
 
-    // Return specific goal with id
-    @Query("SELECT * FROM goals WHERE id = :id")
-    GoalEntity find(int id);
 
-    // Return all goals as LiveData
-    @Query ("SELECT * FROM goals")
-    LiveData<List<GoalEntity>> findAllAsLiveData();
+   // Return all goals
+   @Query("SELECT * FROM goals")
+   List<GoalEntity> findAll();
 
-    // Return specific goal with id as LiveData
-    @Query("SELECT * FROM goals WHERE id = :id")
-    LiveData<GoalEntity> findAsLiveData(int id);
 
-    // Return all completed/uncompleted goals
-    @Query("SELECT * FROM goals WHERE completed = :completed")
-    LiveData<List<GoalEntity>> findCompleted(boolean completed);
+   // Return specific goal with id
+   @Query("SELECT * FROM goals WHERE id = :id")
+   GoalEntity find(int id);
 
-    // Return number of goals in database
-    @Query("SELECT COUNT(*) FROM goals")
-    int count();
 
-    @Query("DELETE FROM goals")
-    void clear();
+   // Return all goals as LiveData
+   @Query ("SELECT * FROM goals")
+   LiveData<List<GoalEntity>> findAllAsLiveData();
 
-    // Delete a goal from database
-    @Query("DELETE FROM goals WHERE id=:id")
-    void delete(int id);
 
-    @Query("DELETE FROM goals WHERE completed=true")
-    void deleteComplete();
+   // Return specific goal with id as LiveData
+   @Query("SELECT * FROM goals WHERE id = :id")
+   LiveData<GoalEntity> findAsLiveData(int id);
 
-    @Query("DELETE FROM goals WHERE id= :idPass")
-    void deleteGoal(int idPass);
 
-    @Query("SELECT * FROM goals WHERE repType = :completed")
-    LiveData<List<GoalEntity>> makeTomorrow(String completed);
+   // Return all completed/uncompleted goals
+   @Query("SELECT * FROM goals WHERE completed = :completed")
+   LiveData<List<GoalEntity>> findCompleted(boolean completed);
+
+
+   // Return number of goals in database
+   @Query("SELECT COUNT(*) FROM goals")
+   int count();
+
+
+   @Query("DELETE FROM goals")
+   void clear();
+
+
+   // Delete a goal from database
+   @Query("DELETE FROM goals WHERE id=:id")
+   void delete(int id);
+
+
+   @Query("DELETE FROM goals WHERE completed=true")
+   void deleteComplete();
+
+
+   @Query("DELETE FROM goals WHERE id= :idPass")
+   void deleteGoal(int idPass);
+
+
+   @Query("SELECT * FROM goals WHERE repType = :completed")
+   LiveData<List<GoalEntity>> makeTomorrow(String completed);
+
+
+   //Return goal context
+   @Query("SELECT * FROM goals WHERE contextType = :contextType")
+   LiveData<List<GoalEntity>> getGoalsByContext(String contextType);
+
+
 }

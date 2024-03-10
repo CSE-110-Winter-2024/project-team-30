@@ -1,7 +1,6 @@
 package edu.ucsd.cse110.successorator.app;
 
 import android.app.Application;
-
 import androidx.room.Room;
 
 import java.time.LocalDateTime;
@@ -14,53 +13,47 @@ import edu.ucsd.cse110.successorator.lib.domain.Goal;
 import edu.ucsd.cse110.successorator.lib.domain.GoalRepository;
 
 public class SuccessoratorApplication extends Application {
-    private InMemoryDataSource dataSource;
-    private GoalRepository goalRepository;
+   private InMemoryDataSource dataSource;
+   private GoalRepository goalRepository;
 
-    //@Override
-    public void onCreate() {
-        super.onCreate();
+   //@Override
+   public void onCreate() {
+       super.onCreate();
 
-        // Build database
-        var database = Room.databaseBuilder(
-                getApplicationContext(),
-                SuccessoratorDatabase.class,
-                "successorator-database"
-            )
-            .allowMainThreadQueries()
-            .build();
+       // Build database
+       var database = Room.databaseBuilder(
+               getApplicationContext(),
+               SuccessoratorDatabase.class,
+               "successorator-database"
+           )
+           .allowMainThreadQueries()
+           .build();
 
-        this.goalRepository = new RoomGoalRepository(database.goalDao());
+       this.goalRepository = new RoomGoalRepository(database.goalDao());
 
-        // Populate with some initial data
-        var sharedPreferences = getSharedPreferences("successorator", MODE_PRIVATE);
-        var isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
+       // Populate with some initial data
+       var sharedPreferences = getSharedPreferences("successorator", MODE_PRIVATE);
+       var isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
 
-        // Default goals for testing purposes
-        List<Goal> DEFAULT_GOALS = List.of(
-            new Goal(1, "Goal 1", false, LocalDateTime.now().toString(), "", ""),
-            new Goal(2, "Goal 2", false, LocalDateTime.now().toString(), "", ""),
-            new Goal(3, "Goal 3", false, LocalDateTime.now().toString(), "", "")
-        );
+       // Default goals for testing purposes
+       List<Goal> DEFAULT_GOALS = List.of(
+           new Goal(1, "Goal 1", false, LocalDateTime.now().toString(), "", "H"),
+           new Goal(2, "Goal 2", false, LocalDateTime.now().toString(), "", "W"),
+           new Goal(3, "Goal 3", false, LocalDateTime.now().toString(), "", "S"),
+           new Goal(4, "Goal 3", false, LocalDateTime.now().toString(), "", "E")
+       );
 
-        // Populate database with default values
-        if (isFirstRun && database.goalDao().count() == 0) {
-            //goalRepository.save(DEFAULT_GOALS);
+       // Populate database with default values
+       if (isFirstRun && database.goalDao().count() == 0) {
+           //goalRepository.save(DEFAULT_GOALS);
 
-            sharedPreferences.edit()
-                .putBoolean("isFirstRun", false)
-                .apply();
-        }
-    }
+           sharedPreferences.edit()
+               .putBoolean("isFirstRun", false)
+               .apply();
+       }
+   }
 
-    public GoalRepository getGoalRepository() {
-        return goalRepository;
-    }
+   public GoalRepository getGoalRepository() {
+       return goalRepository;
+   }
 }
-
-
-
-
-
-
-
